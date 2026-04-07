@@ -1,0 +1,10 @@
+name: EventsReportingAttendant
+form: $/pensoft/eventreporting/models/eventsreportingattendants/fields.yaml
+modelClass: Pensoft\EventReporting\Models\EventsreportingAttendants
+defaultRedirect: pensoft/eventreporting/eventsreportingattendant
+create:
+    redirect: 'pensoft/eventreporting/eventsreportingattendant/update/:id'
+    redirectClose: pensoft/eventreporting/eventsreportingattendant
+update:
+    redirect: pensoft/eventreporting/eventsreportingattendant
+    redirectClose: pensoft/eventreporting/eventsreportingattendant

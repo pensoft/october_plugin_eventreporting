@@ -1,0 +1,46 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true
+    created_at:
+        label: created_at
+        type: datetime
+        searchable: true
+        sortable: true
+    event_name:
+        label: event_name
+        type: text
+        searchable: true
+        sortable: true
+    event_date:
+        label: event_date
+        type: text
+        searchable: true
+        sortable: true
+    organiser:
+        label: organiser
+        type: text
+        searchable: true
+        sortable: true
+    project_organised:
+        label: project_organised
+        type: text
+        searchable: true
+        sortable: true
+    venue:
+        label: venue
+        type: text
+        searchable: true
+        sortable: true
+    online_hybrid_onsite:
+        label: online_hybrid_onsite
+        type: text
+        searchable: true
+        sortable: true
+    website:
+        label: website
+        type: text
+        searchable: true
+        sortable: true

@@ -1,0 +1,45 @@
+<form method="post" data-request="{{__SELF__}}::onSubmit" data-request-files data-request-flash enctype="multipart/form-data">
+	<input type="hidden" name="_handler" value="onSubmit">
+	<input type="hidden" name="_token" value="{{ csrf_token() }}">
+	<div class="row ui form" id="mails">
+		<div class="col-xs">
+
+			<div class="row">
+				<div class="col-xs">
+					<div class="formErrors"></div>
+				</div>
+			</div>
+
+			<input type="hidden" name="user_id" class="DPText" size="2" value="{{user.id}}">
+
+			<div class="row box">
+				<div class="col-xs-12 col-md-12">
+
+					<div class="inputLabel">Event</div>
+					<div class="field">
+						<select name="event_id">
+							<option value="">-- Choose event --</option>
+							{% for event in events %}
+							<option value="{{event.id}}" {% if event.id == id %}selected{% endif %}>{{event.title}} ({{event.start|date('d M Y')}})</option>
+							{% endfor %}
+						</select>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="row box">
+				<div class="col-xs">
+					<div class="row center-xs">
+						<div class="col-xs-12 col-sm-3">
+							<input type="submit" name="tAction" value="Submit" class="btn btn-primary">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+{% framework extras %}
+{% scripts %}

@@ -1,0 +1,23 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true
+    created_at:
+        label: created_at
+        type: datetime
+        searchable: true
+        sortable: true
+    event:
+        label: event
+        type: partial
+        path: $/pensoft/eventreporting/partials/_column_event.htm
+        searchable: true
+        sortable: true
+    user:
+        label: user
+        type: partial
+        path: $/pensoft/eventreporting/partials/_column_user.htm
+        searchable: true
+        sortable: true

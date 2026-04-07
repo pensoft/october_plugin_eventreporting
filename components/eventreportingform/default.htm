@@ -1,0 +1,129 @@
+<form method="post" data-request="{{__SELF__}}::onSubmit" data-request-files data-request-flash enctype="multipart/form-data">
+	<input type="hidden" name="_handler" value="onSubmit">
+	<input type="hidden" name="_token" value="{{ csrf_token() }}">
+	<div class="row ui form" id="mails">
+		<div class="col-xs">
+
+			<div class="row">
+				<div class="col-xs">
+					<div class="formErrors"></div>
+				</div>
+			</div>
+
+			<input type="hidden" name="user_id" class="DPText" size="2" value="{{user.id}}">
+			<input type="hidden" name="slug" class="DPText" size="2" value="{{event.slug}}">
+			<input type="hidden" name="internal_event_id" class="DPText" size="2" value="{{event.id}}">
+
+			<div class="row box">
+				<div class="col-xs-12 col-md-12">
+					<div class="inputLabel">Event name <span class="red">*</span></div>
+					<div class="field">
+						<input type="text" name="event_name" value="{{event.title}}" class="DPText">
+					</div>
+				</div>
+			</div>
+
+			<div class="row box">
+				<div class="col-xs-12 col-md-6">
+					<div class="inputLabel">Event start date <span class="red">*</span></div>
+					<div class="field">
+						<input type="text" name="event_start" value="{{event.start|date('d-m-Y H:i')}}" class="DPText" size="2" id="datepicker_start">
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<div class="inputLabel">Event end date <span class="red">*</span></div>
+					<div class="field">
+						<input type="text" name="event_end" value="{{event.end|date('d-m-Y H:i')}}" class="DPText" size="2" id="datepicker_end">
+					</div>
+					<script>
+						$( function() {
+							$("#datepicker_start, #datepicker_end").datetimepicker({
+								dateFormat: 'dd-mm-yy',
+								timeFormat: 'HH:mm',
+								minDate: null,
+								minHour: null,
+								minMinutes: null,
+								changeMonth: true,
+								changeYear: true,
+								dayNamesShort: [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ],
+							});
+						} );
+					</script>
+				</div>
+			</div>
+
+			<div class="row box">
+				<div class="col-xs-12 col-md-6">
+					<div class="inputLabel">Organiser <span class="red">*</span></div>
+					<div class="field">
+						<input type="text" name="organiser" value="{{event.organiser}}" class="DPText" size="2">
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<div class="inputLabel">{{project_name}} organised/involved/relevant <span class="red">*</span></div>
+					<div class="field">
+						<select name="project_organised">
+							<option value="">-- Choose --</option>
+							<option value="1" {% if event.identifier == 1 %} selected {% endif %}>{{project_name}} organised</option>
+							<option value="2" {% if event.identifier == 2 %} selected {% endif %}>{{project_name}} involved</option>
+							<option value="3" {% if event.identifier == 3 %} selected {% endif %}>{{project_name}} relevant</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="row box">
+				<div class="col-xs-12 col-md-6">
+					<div class="inputLabel">Venue <span class="red">*</span></div>
+					<div class="field">
+						<input type="text" name="venue" value="{{event.place}}" class="DPText" size="2">
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<div class="inputLabel">Online, hybrid or on-site participation <span class="red">*</span></div>
+					<div class="field">
+						<select name="online_hybrid_onsite">
+							<option value="">-- Choose --</option>
+							<option value="1" {% if event.online_hybrid_onsite == 1 %} selected {% endif %}>Online</option>
+							<option value="2" {% if event.online_hybrid_onsite == 2 %} selected {% endif %}>Hybrid</option>
+							<option value="3" {% if event.online_hybrid_onsite == 3 %} selected {% endif %}>On Site</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="row box">
+				<div class="col-xs-12 col-md-6">
+					<div class="inputLabel">Link to event website</div>
+					<div class="field">
+						<input type="text" name="website" value="{{event.url}}" class="DPText" size="2">
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<div class="inputLabel">Event visibility (Internal / Public) <span class="red">*</span></div>
+					<div class="field">
+						<select name="is_internal">
+							<option value="">-- Choose --</option>
+							<option value="0" {% if event.is_internal == 0 %} selected {% endif %}>Public</option>
+							<option value="1" {% if event.is_internal == 1 %} selected {% endif %}>Internal</option>
+						</select>
+						<small>Internal events can be viewed only by consortium members upon login to the Internal Repository.</small>
+					</div>
+				</div>
+			</div>
+
+			<div class="row box">
+				<div class="col-xs">
+					<div class="row center-xs">
+						<div class="col-xs-12 col-sm-3">
+							<input type="submit" name="tAction" value="Submit" class="btn btn-primary">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+{% framework extras %}
+{% scripts %}

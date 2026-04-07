@@ -1,0 +1,37 @@
+fields:
+    event_name:
+        label: 'Event name'
+        span: auto
+        type: text
+    slug:
+        label: Slug
+        span: auto
+        type: text
+    organiser:
+        label: Organiser
+        span: auto
+        type: text
+    project_organised:
+        label: 'Project organised'
+        span: auto
+        type: number
+    venue:
+        label: Venue
+        span: auto
+        type: text
+    online_hybrid_onsite:
+        label: 'Online hybrid onsite'
+        span: auto
+        type: number
+    event_start:
+        label: 'Event start'
+        span: auto
+        type: datepicker
+    event_end:
+        label: 'Event end'
+        span: auto
+        type: datepicker
+    website:
+        label: Website
+        span: auto
+        type: text

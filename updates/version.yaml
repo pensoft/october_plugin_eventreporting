@@ -1,0 +1,52 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table pensoft_eventreporting_data'
+    - builder_table_create_pensoft_eventreporting_data.php
+1.0.3:
+    - 'Updated table pensoft_eventreporting_data'
+    - builder_table_update_pensoft_eventreporting_data.php
+1.0.4:
+    - 'Related partner name fix'
+1.0.5:
+    - 'Updated table pensoft_eventreporting_data'
+1.0.6:
+    - 'Updated table pensoft_eventreporting_data'
+1.0.7:
+    - 'Updated table pensoft_eventreporting_data'
+    - builder_table_update_pensoft_eventreporting_data_4.php
+1.0.8:
+    - 'Updated table pensoft_eventreporting_data'
+    - builder_table_update_pensoft_eventreporting_data_5.php
+1.0.9:
+    - Fix
+1.0.10:
+    - 'Updated table pensoft_eventreporting_data'
+    - builder_table_update_pensoft_eventreporting_data_6.php
+1.0.11:
+    - 'Created table pensoft_eventreporting_attendants'
+    - builder_table_create_pensoft_eventreporting_attendants.php
+1.0.12:
+    - 'Add attendance'
+1.0.13:
+    - 'Add attendance skip past events'
+1.0.14:
+    - 'Edit/create backend'
+1.0.15:
+    - 'Updated table pensoft_eventreporting_data'
+    - builder_table_update_pensoft_eventreporting_data_7.php
+1.0.16:
+    - 'Attendant event id relation'
+1.0.17:
+    - 'Edit event, event date and time'
+1.0.18:
+    - 'Order dropdown'
+1.0.19:
+    - 'Event identifiers 1-organised, 2-involved, 3-relevant'
+1.0.20:
+    - 'Attendats fix'
+1.0.21:
+    - 'Removed partner variable'
+
+4.0.1:
+    - 'Migrated to OctoberCMS 4 and PHP 8.2'

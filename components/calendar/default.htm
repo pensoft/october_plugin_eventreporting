@@ -1,0 +1,52 @@
+{% if __SELF__.property("default") %}
+{% put scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('{{ __SELF__.alias }}');
+        var alwaysRedirectToDetailedPage = parseInt('{{ __SELF__.property("redirect_to_detailed_page")}}');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            plugins: [ 'dayGrid', 'list', 'bootstrap' ],
+            header: {
+                left:   'today,prev,next',
+                center: 'title',
+                right:  'dayGridMonth,dayGridWeek,dayGridDay,listYear'
+            },
+            locale: '{{ __SELF__.property("language") }}',
+            events: {
+                url: document.location.origin + '/api/pensoft/eventreporting/feed/{{ __SELF__.property("limit") }}/{{ __SELF__.property("category") }}',
+                method: 'GET',
+
+                rendering: 'inverse-background',
+                failure: function() {
+                    alert('there was an error while fetching events!');
+                }
+            },
+            eventTimeFormat: {
+                hour: '2-digit',
+                minute: '2-digit',
+                meridiem: false
+            },
+            eventClick: function(info) {
+                info.jsEvent.preventDefault();
+                if (info.event.url.length && !alwaysRedirectToDetailedPage) {
+                    return window.open(info.event.url);
+                }else
+                if(info.event.extendedProps.slug) {
+                    let url = '/events/' + info.event.extendedProps.slug;
+                    location.href = url;
+                    return false;
+                }
+            },
+            eventRender: function(info) {
+                info.el.setAttribute('title', info.event.extendedProps.eventTitle.replace(/&amp;/g, '&'));
+            },
+            displayEventEnd: true,
+        });
+
+        calendar.render();
+    });
+</script>
+{% endput %}
+{% endif %}
+<div id='{{ __SELF__.alias }}'></div>

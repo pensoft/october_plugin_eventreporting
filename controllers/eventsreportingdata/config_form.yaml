@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Planned events
+
+# Model Form Field configuration
+form: $/pensoft/eventreporting/models/eventsreportingdata/fields.yaml
+
+# Model Class name
+modelClass: Pensoft\EventReporting\Models\EventsreportingData
+
+# Default redirect location
+defaultRedirect: pensoft/eventreporting/eventsreportingdata
+
+# Create page
+create:
+    title: backend::lang.form.create_title
+    redirect: pensoft/eventreporting/eventsreportingdata/update/:id
+    redirectClose: pensoft/eventreporting/eventsreportingdata
+
+# Update page
+update:
+    title: backend::lang.form.update_title
+    redirect: pensoft/eventreporting/eventsreportingdata
+    redirectClose: pensoft/eventreporting/eventsreportingdata
+
+# Preview page
+preview:
+    title: backend::lang.form.preview_title

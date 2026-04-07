@@ -1,0 +1,20 @@
+plugin:
+    name: 'pensoft.eventreporting::lang.plugin.name'
+    description: 'pensoft.eventreporting::lang.plugin.description'
+    author: Pensoft
+    icon: oc-icon-calendar-o
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: 'Event Reporting'
+        url: pensoft/eventreporting/eventsreportingdata
+        icon: icon-calendar-o
+        sideMenu:
+            side-menu-item:
+                label: 'Planned events'
+                url: pensoft/eventreporting/eventsreportingdata
+                icon: icon-calendar
+            side-menu-item2:
+                label: Attendees
+                url: pensoft/eventreporting/eventsreportingattendant
+                icon: icon-users

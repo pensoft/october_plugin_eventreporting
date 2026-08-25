@@ -47,3 +47,5 @@
     - 'Attendats fix'
 1.0.21:
     - 'Removed partner variable'
+1.0.22:
+    - 'Add captions (WCAG 1.2.2)'

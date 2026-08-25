@@ -1,3 +1,18 @@
+{#
+    Accessibility notes for this form:
+
+    - Every control now has a real <label for>. The previous <div class="inputLabel">
+      was styled to look like a label but was never associated with anything, so
+      screen readers announced the inputs as unlabelled.
+    - Required fields carry `required` + aria-required, so the asterisk in the
+      label is not the only signal.
+    - The two date fields stay plain text inputs, which is what lets them accept
+      typed input; the format is spelled out in a hint the field points at with
+      aria-describedby. jQuery UI's picker is an optional add-on, never the only
+      way in.
+    - .formErrors is a live region so a failed submit is announced; theme
+      assets/js/a11y.js additionally builds a focusable error summary.
+#}
 <form method="post" data-request="{{__SELF__}}::onSubmit" data-request-files data-request-flash  enctype="multipart/form-data">
     <input type="hidden" name="_handler" value="onSubmit">
     {{ form_token() }}
@@ -7,9 +22,11 @@
 
             <div class="row">
                 <div class="col-xs">
-                    <div class="formErrors"></div>
+                    <div class="formErrors" role="alert" aria-live="assertive"></div>
                 </div>
             </div>
+
+            <p class="form-required-note"><span class="required-marker" aria-hidden="true">*</span> indicates a required field.</p>
 
             <input type="hidden" name="user_id" class="DPText" size="2" value="{{user.id}}">
             <input type="hidden" name="slug" class="DPText" size="2" value="{{event.slug}}">
@@ -17,9 +34,9 @@
 
             <div class="row box">
                 <div class="col-xs-12 col-md-12">
-                    <div class="inputLabel">Event name <span class="red">*</span></div>
+                    <label class="inputLabel" for="event_name">Event name <span class="required-marker" aria-hidden="true">*</span></label>
                     <div class="field">
-                        <input type="text" name="event_name" value="{{event.title}}" class="DPText">
+                        <input type="text" id="event_name" name="event_name" value="{{event.title}}" class="DPText" required aria-required="true">
                     </div>
                 </div>
             </div>
@@ -27,20 +44,28 @@
             <div class="row box">
                 <div class="col-xs-12 col-md-6">
 
-                            <div class="inputLabel">Event start date <span class="red">*</span></div>
+                            <label class="inputLabel" for="datepicker_start">Event start date <span class="required-marker" aria-hidden="true">*</span></label>
                             <div class="field">
-                                <input type="text" name="event_start" value="{{event.start|date('d-m-Y H:i')}}" class="DPText" size="2" id="datepicker_start">
+                                <input type="text" name="event_start" value="{{event.start|date('d-m-Y H:i')}}" class="DPText" size="2" id="datepicker_start"
+                                       required aria-required="true" autocomplete="off"
+                                       aria-describedby="datepicker_start_hint">
+                                <span class="field-hint" id="datepicker_start_hint">Format: DD-MM-YYYY HH:MM, for example 05-03-2026 14:30. You can type the date directly.</span>
                             </div>
 
                 </div>
                 <div class="col-xs-12 col-md-6">
-                            <div class="inputLabel">Event end date <span class="red">*</span></div>
+                            <label class="inputLabel" for="datepicker_end">Event end date <span class="required-marker" aria-hidden="true">*</span></label>
                             <div class="field">
-                                <input type="text" name="event_end" value="{{event.end|date('d-m-Y H:i')}}" class="DPText" size="2" id="datepicker_end">
+                                <input type="text" name="event_end" value="{{event.end|date('d-m-Y H:i')}}" class="DPText" size="2" id="datepicker_end"
+                                       required aria-required="true" autocomplete="off"
+                                       aria-describedby="datepicker_end_hint">
+                                <span class="field-hint" id="datepicker_end_hint">Format: DD-MM-YYYY HH:MM, for example 07-03-2026 17:00. You can type the date directly.</span>
                             </div>
                     <script>
                         $( function() {
-                            // var start;
+                            // The picker is an enhancement only - it must never make the
+                            // field read-only, or keyboard users lose the ability to type
+                            // a date (WCAG 2.1.1).
                             $("#datepicker_start, #datepicker_end").datetimepicker({
                                 dateFormat: 'dd-mm-yy',
                                 timeFormat: 'HH:mm',
@@ -50,7 +75,7 @@
                                 changeMonth: true,
                                 changeYear: true,
                                 dayNamesShort: [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ],
-                            });
+                            }).removeAttr('readonly');
                         } );
                     </script>
 
@@ -59,18 +84,18 @@
             <div class="row box">
                 <div class="col-xs-12 col-md-6">
 
-                            <div class="inputLabel">Organiser <span class="red">*</span></div>
+                            <label class="inputLabel" for="organiser">Organiser <span class="required-marker" aria-hidden="true">*</span></label>
                             <div class="field">
-                                <input type="text" name="organiser" value="{{event.organiser}}" class="DPText" size="2">
+                                <input type="text" id="organiser" name="organiser" value="{{event.organiser}}" class="DPText" size="2" required aria-required="true">
                             </div>
 
                 </div>
 
                 <div class="col-xs-12 col-md-6">
 
-                            <div class="inputLabel">{{project_name}} organised/involved/relevant <span class="red">*</span></div>
+                            <label class="inputLabel" for="project_organised">{{project_name}} organised/involved/relevant <span class="required-marker" aria-hidden="true">*</span></label>
                             <div class="field">
-                                <select name="project_organised">
+                                <select id="project_organised" name="project_organised" required aria-required="true">
                                     <option value="">-- Choose --</option>
                                     <option value="1" {% if event.identifier == 1 %} selected {% endif %}>{{project_name}} organised</option>
                                     <option value="2" {% if event.identifier == 2 %} selected {% endif %}>{{project_name}} involved</option>
@@ -83,16 +108,15 @@
 
             <div class="row box">
                 <div class="col-xs-12 col-md-6">
-                            <div class="inputLabel">Venue <span class="red">*</span></div>
+                            <label class="inputLabel" for="venue">Venue <span class="required-marker" aria-hidden="true">*</span></label>
                             <div class="field">
-                                <input type="text" name="venue" value="{{event.place}}" class="DPText" size="2">
+                                <input type="text" id="venue" name="venue" value="{{event.place}}" class="DPText" size="2" required aria-required="true">
                             </div>
-
                 </div>
                 <div class="col-xs-12 col-md-6">
-                            <div class="inputLabel">Online, hybrid or on-site participation <span class="red">*</span></div>
+                            <label class="inputLabel" for="online_hybrid_onsite">Online, hybrid or on-site participation <span class="required-marker" aria-hidden="true">*</span></label>
                             <div class="field">
-                                <select name="online_hybrid_onsite">
+                                <select id="online_hybrid_onsite" name="online_hybrid_onsite" required aria-required="true">
                                     <option value="">-- Choose --</option>
                                     <option value="1" {% if event.online_hybrid_onsite == 1 %} selected {% endif %}>Online</option>
                                     <option value="2" {% if event.online_hybrid_onsite == 2 %} selected {% endif %}>Hybrid</option>
@@ -104,22 +128,24 @@
 
             <div class="row box">
                 <div class="col-xs-12 col-md-6">
-                            <div class="inputLabel">Link to event website</div>
+                            <label class="inputLabel" for="website">Link to event website</label>
                             <div class="field">
-                                <input type="text" name="website" value="{{event.url}}" class="DPText" size="2">
+                                <input type="url" id="website" name="website" value="{{event.url}}" class="DPText" size="2"
+                                       aria-describedby="website_hint" placeholder="https://">
+                                <span class="field-hint" id="website_hint">Include https:// at the start.</span>
                             </div>
 
                 </div>
 
                 <div class="col-xs-12 col-md-6">
-                    <div class="inputLabel">Event visibility (Internal / Public) <span class="red">*</span> </div>
+                    <label class="inputLabel" for="is_internal">Event visibility (Internal / Public) <span class="required-marker" aria-hidden="true">*</span> </label>
                     <div class="field">
-                        <select name="is_internal">
+                        <select id="is_internal" name="is_internal" required aria-required="true" aria-describedby="is_internal_hint">
                             <option value="">-- Choose --</option>
                             <option value="0" {% if event.is_internal == 0 %} selected {% endif %}>Public</option>
                             <option value="1" {% if event.is_internal == 1 %} selected {% endif %}>Internal</option>
                         </select>
-                        <small>Internal events can be viewed only by consortium members upon login to the Internal Repository.</small>
+                        <small class="field-hint" id="is_internal_hint">Internal events can be viewed only by consortium members upon login to the Internal Repository.</small>
                     </div>
 
                 </div>

@@ -7,7 +7,7 @@
 
             <div class="row">
                 <div class="col-xs">
-                    <div class="formErrors"></div>
+                    <div class="formErrors" role="alert" aria-live="assertive"></div>
                 </div>
             </div>
 
@@ -16,9 +16,10 @@
             <div class="row box">
                 <div class="col-xs-12 col-md-12">
 
-                    <div class="inputLabel">Event</div>
+                    {# was a <div> that only looked like a label, so the select announced as unlabelled #}
+                    <label class="inputLabel" for="event_id">Event <span class="required-marker" aria-hidden="true">*</span></label>
                     <div class="field">
-                        <select name="event_id">
+                        <select id="event_id" name="event_id" required aria-required="true">
                             <option value="">-- Choose event --</option>
                             {% for event in events %}
                                 <option value="{{event.id}}" {% if event.id == id %}selected{% endif %}>{{event.title}} ({{event.start|date('d M Y')}})</option>
